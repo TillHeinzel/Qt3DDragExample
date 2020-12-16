@@ -48,23 +48,51 @@
 **
 ****************************************************************************/
 
-#include <QGuiApplication>
-#include <QtWidgets/QApplication>
-
 #include "CubeManager.hpp"
-#include "SceneWidget.hpp"
 
-int main(int argc, char** argv)
+#include <Qt3DCore/qtransform.h>
+
+#include <Qt3DExtras/QCuboidMesh>
+#include <Qt3DExtras/QPhongMaterial>
+#include <Qt3DExtras/QSphereMesh>
+
+CubeManager::CubeManager(Qt3DCore::QEntity* rootEntity) : m_rootEntity(rootEntity)
 {
-  QApplication app(argc, argv);
+  // Cuboid shape data
+  Qt3DExtras::QCuboidMesh* cuboid = new Qt3DExtras::QCuboidMesh();
 
-  auto* sceneWidget = new SceneWidget();
+  // CuboidMesh Transform
+  Qt3DCore::QTransform* cuboidTransform = new Qt3DCore::QTransform();
+  cuboidTransform->setScale(4.0f);
+  cuboidTransform->setTranslation(QVector3D(5.0f, -4.0f, 0.0f));
 
-  auto cubeManager = CubeManager(sceneWidget->rootEntity());
+  Qt3DExtras::QPhongMaterial* cuboidMaterial = new Qt3DExtras::QPhongMaterial();
+  cuboidMaterial->setDiffuse(QColor(QRgb(0x665423)));
 
-  // Show window
-  sceneWidget->show();
-  sceneWidget->resize(1200, 800);
+  // Cuboid
+  m_cuboidEntity = new Qt3DCore::QEntity(m_rootEntity);
+  m_cuboidEntity->addComponent(cuboid);
+  m_cuboidEntity->addComponent(cuboidMaterial);
+  m_cuboidEntity->addComponent(cuboidTransform);
 
-  return app.exec();
+  // Sphere shape data
+  Qt3DExtras::QSphereMesh* sphereMesh = new Qt3DExtras::QSphereMesh();
+  sphereMesh->setRings(20);
+  sphereMesh->setSlices(20);
+  sphereMesh->setRadius(2);
+
+  // Sphere mesh transform
+  Qt3DCore::QTransform* sphereTransform = new Qt3DCore::QTransform();
+
+  sphereTransform->setScale(1.3f);
+  sphereTransform->setTranslation(QVector3D(-5.0f, -4.0f, 0.0f));
+
+  Qt3DExtras::QPhongMaterial* sphereMaterial = new Qt3DExtras::QPhongMaterial();
+  sphereMaterial->setDiffuse(QColor(QRgb(0xa69929)));
+
+  // Sphere
+  m_sphereEntity = new Qt3DCore::QEntity(m_rootEntity);
+  m_sphereEntity->addComponent(sphereMesh);
+  m_sphereEntity->addComponent(sphereMaterial);
+  m_sphereEntity->addComponent(sphereTransform);
 }
