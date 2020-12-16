@@ -1,0 +1,7 @@
+if(MSVC)
+    add_compile_options("/WX")
+elseif(GCC)
+    add_compile_options("-Werror")
+elseif(CLANG)
+    add_compile_options("-Werror")
+endif()

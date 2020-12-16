@@ -1,0 +1,5 @@
+if(MSVC)
+    add_compile_options("/experimental:external")
+    add_compile_options("/external:anglebrackets")
+    add_compile_options("/external:W0")
+endif()
