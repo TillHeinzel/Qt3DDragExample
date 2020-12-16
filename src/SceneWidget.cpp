@@ -39,15 +39,6 @@ namespace
     return container;
   }
 
-  auto setup3DView()
-  {
-    auto* view = make3DView();
-
-    auto* container = containerize(view);
-
-    return std::make_tuple(view, container);
-  }
-
   void addPointLight(Qt3DCore::QEntity* rootEntity, QVector3D position)
   {
     Qt3DCore::QEntity* lightEntity = new Qt3DCore::QEntity(rootEntity);
@@ -72,11 +63,6 @@ namespace
     return cameraEntity;
   }
 
-  void addCamera(Qt3DCore::QEntity* rootEntity, Qt3DRender::QCamera* camera)
-  {
-    Qt3DExtras::QFirstPersonCameraController* camController = new Qt3DExtras::QFirstPersonCameraController(rootEntity);
-    camController->setCamera(camera);
-  }
 } // namespace
 
 SceneWidget::SceneWidget() : rootEntity_(new Qt3DCore::QEntity())
@@ -87,7 +73,6 @@ SceneWidget::SceneWidget() : rootEntity_(new Qt3DCore::QEntity())
 
   // Camera
   auto* camera = makeCamera(view);
-  addCamera(rootEntity_, camera);
   addPointLight(rootEntity_, camera->position());
 
   // Set root object of the scene
