@@ -52,6 +52,8 @@
 
 #include <Qt3DCore/qentity.h>
 
+#include <QObjectPicker>
+
 class CubeManager
 {
 public:
@@ -61,4 +63,6 @@ private:
   Qt3DCore::QEntity* m_rootEntity;
   Qt3DCore::QEntity* m_cuboidEntity;
   Qt3DCore::QEntity* m_sphereEntity;
+
+  Qt3DRender::QObjectPicker* picker_;
 };

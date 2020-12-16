@@ -50,8 +50,14 @@
 
 #include "CubeManager.hpp"
 
+#include <iostream>
+
 #include <Qt3DCore/qtransform.h>
 
+#include <Qt3DRender/QObjectPicker>
+#include <Qt3DRender/QPickEvent>
+
+#include <QDebug>
 #include <Qt3DExtras/QCuboidMesh>
 #include <Qt3DExtras/QPhongMaterial>
 #include <Qt3DExtras/QSphereMesh>
@@ -95,4 +101,16 @@ CubeManager::CubeManager(Qt3DCore::QEntity* rootEntity) : m_rootEntity(rootEntit
   m_sphereEntity->addComponent(sphereMesh);
   m_sphereEntity->addComponent(sphereMaterial);
   m_sphereEntity->addComponent(sphereTransform);
+
+  picker_ = new Qt3DRender::QObjectPicker();
+  picker_->setEnabled(true);
+  picker_->setDragEnabled(true);
+  m_sphereEntity->addComponent(picker_);
+
+  QObject::connect(picker_, &Qt3DRender::QObjectPicker::clicked, []() {
+    std::cout << "clicked" << std::endl;
+  });
+  QObject::connect(picker_, &Qt3DRender::QObjectPicker::moved, []() {
+    std::cout << "moved" << std::endl;
+  });
 }
