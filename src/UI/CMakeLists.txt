@@ -4,11 +4,11 @@ add_library(${TARGET_NAME} STATIC
   UI.hpp
   UI.cpp
   
-  SceneWidget.hpp
-  SceneWidget.cpp
+  detail/SceneWidget.hpp
+  detail/SceneWidget.cpp
 
-  CubeManager.cpp 
-  CubeManager.hpp
+  detail/CubeManager.cpp 
+  detail/CubeManager.hpp
 )
 
 target_link_libraries(${TARGET_NAME} 
