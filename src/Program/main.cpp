@@ -48,23 +48,9 @@
 **
 ****************************************************************************/
 
-#include <QGuiApplication>
-#include <QtWidgets/QApplication>
-
-#include "CubeManager.hpp"
-#include "SceneWidget.hpp"
+#include "UI/UI.hpp"
 
 int main(int argc, char** argv)
 {
-  QApplication app(argc, argv);
-
-  auto* sceneWidget = new SceneWidget();
-
-  auto cubeManager = CubeManager(sceneWidget->rootEntity());
-
-  // Show window
-  sceneWidget->show();
-  sceneWidget->resize(1200, 800);
-
-  return app.exec();
+  return runUI(argc, argv);
 }

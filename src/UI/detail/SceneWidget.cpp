@@ -62,7 +62,6 @@ namespace
 
     return cameraEntity;
   }
-
 } // namespace
 
 SceneWidget::SceneWidget() : rootEntity_(new Qt3DCore::QEntity())
@@ -70,15 +69,11 @@ SceneWidget::SceneWidget() : rootEntity_(new Qt3DCore::QEntity())
   setWindowTitle(QStringLiteral("Move the Cube"));
 
   auto* view = make3DView();
+  view->setRootEntity(rootEntity_);
 
-  // Camera
   auto* camera = makeCamera(view);
   addPointLight(rootEntity_, camera->position());
 
-  // Set root object of the scene
-  view->setRootEntity(rootEntity_);
-
-  // setup layout
   QHBoxLayout* hLayout = new QHBoxLayout(this);
   hLayout->addWidget(containerize(view), 1);
 }
