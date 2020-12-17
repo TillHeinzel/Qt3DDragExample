@@ -1,3 +1,10 @@
 #pragma once
 
-int runUI(int argc, char** argv);
+#include <memory>
+
+#include "UI/IModel.hpp"
+
+namespace ui
+{
+  int runUI(int argc, char** argv, std::shared_ptr<IModel> model);
+}

@@ -3,20 +3,23 @@
 #include <QGuiApplication>
 #include <QtWidgets/QApplication>
 
-#include "detail/CubeManager.hpp"
 #include "detail/SceneWidget.hpp"
+#include "detail/initializeContent.hpp"
 
-int runUI(int argc, char** argv)
+namespace ui
 {
-  QApplication app(argc, argv);
+  int runUI(int argc, char** argv, std::shared_ptr<IModel> model)
+  {
+    QApplication app(argc, argv);
 
-  auto* sceneWidget = new SceneWidget();
+    auto* sceneWidget = new SceneWidget();
 
-  auto cubeManager = CubeManager(sceneWidget->rootEntity());
+    initializeContent(sceneWidget->rootEntity(), model);
 
-  // Show window
-  sceneWidget->show();
-  sceneWidget->resize(1200, 800);
+    // Show window
+    sceneWidget->show();
+    sceneWidget->resize(1200, 800);
 
-  return app.exec();
-}
+    return app.exec();
+  }
+} // namespace ui

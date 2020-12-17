@@ -48,9 +48,14 @@
 **
 ****************************************************************************/
 
+#include "Model/Model.hpp"
 #include "UI/UI.hpp"
+
+#include "Glue/ModelAdapter.hpp"
 
 int main(int argc, char** argv)
 {
-  return runUI(argc, argv);
+  const auto model = std::make_shared<ModelAdapter>(model::Model());
+
+  return ui::runUI(argc, argv, model);
 }
