@@ -62,7 +62,7 @@
 #include <Qt3DExtras/QPhongMaterial>
 #include <Qt3DExtras/QSphereMesh>
 
-CubeManager::CubeManager(Qt3DCore::QEntity* rootEntity) : m_rootEntity(rootEntity)
+CubeManager::CubeManager(Qt3DCore::QEntity* rootEntity) : rootEntity_(rootEntity)
 {
   // Cuboid shape data
   Qt3DExtras::QCuboidMesh* cuboid = new Qt3DExtras::QCuboidMesh();
@@ -76,10 +76,10 @@ CubeManager::CubeManager(Qt3DCore::QEntity* rootEntity) : m_rootEntity(rootEntit
   cuboidMaterial->setDiffuse(QColor(QRgb(0x665423)));
 
   // Cuboid
-  m_cuboidEntity = new Qt3DCore::QEntity(m_rootEntity);
-  m_cuboidEntity->addComponent(cuboid);
-  m_cuboidEntity->addComponent(cuboidMaterial);
-  m_cuboidEntity->addComponent(cuboidTransform);
+  cube_ = new Qt3DCore::QEntity(rootEntity_);
+  cube_->addComponent(cuboid);
+  cube_->addComponent(cuboidMaterial);
+  cube_->addComponent(cuboidTransform);
 
   // Sphere shape data
   Qt3DExtras::QSphereMesh* sphereMesh = new Qt3DExtras::QSphereMesh();
@@ -97,20 +97,20 @@ CubeManager::CubeManager(Qt3DCore::QEntity* rootEntity) : m_rootEntity(rootEntit
   sphereMaterial->setDiffuse(QColor(QRgb(0xa69929)));
 
   // Sphere
-  m_sphereEntity = new Qt3DCore::QEntity(m_rootEntity);
-  m_sphereEntity->addComponent(sphereMesh);
-  m_sphereEntity->addComponent(sphereMaterial);
-  m_sphereEntity->addComponent(sphereTransform);
+  dragger_ = new Qt3DCore::QEntity(rootEntity_);
+  dragger_->addComponent(sphereMesh);
+  dragger_->addComponent(sphereMaterial);
+  dragger_->addComponent(sphereTransform);
 
-  picker_ = new Qt3DRender::QObjectPicker();
-  picker_->setEnabled(true);
-  picker_->setDragEnabled(true);
-  m_sphereEntity->addComponent(picker_);
+  auto* picker = new Qt3DRender::QObjectPicker();
+  picker->setEnabled(true);
+  picker->setDragEnabled(true);
+  dragger_->addComponent(picker);
 
-  QObject::connect(picker_, &Qt3DRender::QObjectPicker::clicked, []() {
+  QObject::connect(picker, &Qt3DRender::QObjectPicker::clicked, []() {
     std::cout << "clicked" << std::endl;
   });
-  QObject::connect(picker_, &Qt3DRender::QObjectPicker::moved, []() {
+  QObject::connect(picker, &Qt3DRender::QObjectPicker::moved, []() {
     std::cout << "moved" << std::endl;
   });
 }

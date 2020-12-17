@@ -52,17 +52,13 @@
 
 #include <Qt3DCore/qentity.h>
 
-#include <QObjectPicker>
-
 class CubeManager
 {
 public:
   explicit CubeManager(Qt3DCore::QEntity* rootEntity);
 
 private:
-  Qt3DCore::QEntity* m_rootEntity;
-  Qt3DCore::QEntity* m_cuboidEntity;
-  Qt3DCore::QEntity* m_sphereEntity;
-
-  Qt3DRender::QObjectPicker* picker_;
+  Qt3DCore::QEntity* rootEntity_;
+  Qt3DCore::QEntity* cube_;
+  Qt3DCore::QEntity* dragger_;
 };
