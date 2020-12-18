@@ -4,16 +4,6 @@
 
 #include <QVector3D>
 
-struct Position
-{
-  QVector3D val;
-};
-
-struct XDelta
-{
-  float val;
-};
-
 namespace ui
 {
   class IModelEntity : public QObject
@@ -21,8 +11,11 @@ namespace ui
     Q_OBJECT;
 
   public:
-    virtual void translate(XDelta dx) = 0;
-    virtual Position position() const = 0;
+    virtual void moveTo(const QVector3D& newPosition) = 0;
+    virtual void rotate() = 0;
+
+    virtual QVector3D position() const = 0;
+    virtual float yRotation() const = 0;
 
   signals:
     void dataChanged();

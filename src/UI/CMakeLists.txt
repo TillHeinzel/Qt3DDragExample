@@ -1,6 +1,6 @@
 set(TARGET_NAME UI)
 
-add_library(${TARGET_NAME} STATIC 
+add_testable_lib(${TARGET_NAME}  
   UI.hpp
   UI.cpp
   
@@ -12,15 +12,9 @@ add_library(${TARGET_NAME} STATIC
   
   detail/initializeContent.hpp 
   detail/initializeContent.cpp 
-  
-  detail/MovableEntity.hpp
-  detail/MovableEntity.cpp
-
-  detail/MoveDragger.hpp
-  detail/MoveDragger.cpp
 )
 
-target_link_libraries(${TARGET_NAME} 
+target_link_libraries(${TARGET_NAME} PUBLIC
   Qt::Widgets 
   Qt::3DExtras 
   Qt::3DInput 

@@ -2,6 +2,9 @@
 #include <iostream>
 #include <utility>
 
+#include <QVector3D>
+#include <qobjectdefs.h>
+
 #include "Model/Model.hpp"
 #include "UI/IModel.hpp"
 
@@ -10,22 +13,19 @@ class ModelEntityAdapter : public ui::IModelEntity
   Q_OBJECT;
 
 public:
-  void translate(XDelta dx) override
-  {
-    std::cout << "moved: " << dx.val << std::endl;
-    position_.setX(position_.x() + dx.val);
-    emit dataChanged();
-  }
+  void moveTo(const QVector3D& newPosition) override;
+  void rotate() override;
 
-  Position position() const override
-  {
-    return {position_};
-  }
+  QVector3D position() const override;
+  float yRotation() const override;
 
-  ModelEntityAdapter(QVector3D position) : position_(position) {}
+  // Ctor
+public:
+  ModelEntityAdapter(QVector3D position, float yRotation) : position_(std::move(position)), yRotation_(yRotation) {}
 
 private:
   QVector3D position_;
+  float yRotation_{};
 };
 
 class ModelAdapter : public ui::IModel
@@ -35,7 +35,7 @@ public:
 
   std::shared_ptr<ui::IModelEntity> get() const override
   {
-    return std::make_shared<ModelEntityAdapter>(QVector3D(0.0f, -4.0f, 0.0f));
+    return std::make_shared<ModelEntityAdapter>(QVector3D(0.0f, 0.36f, 0.0f), 0.0f);
   }
 
 private:
