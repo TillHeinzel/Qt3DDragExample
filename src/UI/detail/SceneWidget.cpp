@@ -66,10 +66,11 @@ namespace
 
 SceneWidget::SceneWidget() : rootEntity_(new Qt3DCore::QEntity())
 {
-  setWindowTitle(QStringLiteral("Move the Cube"));
+  setWindowTitle(QStringLiteral("Move the Brick"));
 
   auto* view = make3DView();
   view->setRootEntity(rootEntity_);
+  view->renderSettings();
 
   auto* camera = makeCamera(view);
   addPointLight(rootEntity_, camera->position());

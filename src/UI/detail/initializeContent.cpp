@@ -76,7 +76,7 @@ namespace
     });
   }
 
-  void addCubeTo(Qt3DCore::QEntity* rootEntity,
+  void addBrickTo(Qt3DCore::QEntity* rootEntity,
                  std::shared_ptr<ui::IModelEntity> model,
                  Qt3DInput::QMouseDevice* mouseDevice)
   {
@@ -99,5 +99,5 @@ void initializeContent(Qt3DCore::QEntity* rootEntity, std::shared_ptr<ui::IModel
 {
   auto* mouseDevice = new Qt3DInput::QMouseDevice(rootEntity);
 
-  addCubeTo(rootEntity, model->get(), mouseDevice);
+  addBrickTo(rootEntity, model->get(), mouseDevice);
 }
